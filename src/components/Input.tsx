@@ -2,6 +2,12 @@ import styled from "styled-components";
 import { IoIosAdd } from "react-icons/io";
 import { useForm } from "react-hook-form";
 
+interface InputProps {
+  onValid: (name: string) => void;
+  name: string;
+  placeholder: string;
+}
+
 interface Name {
   [name: string]: string;
 }
@@ -36,7 +42,7 @@ const Form = styled.form`
   }
 `;
 
-function Input({ onValid, name, placeholder }: any) {
+function Input({ onValid, name, placeholder }: InputProps) {
   const { register, handleSubmit, setValue } = useForm<Name>();
   const onSubmit = (obj: Name) => {
     onValid(obj[name]);

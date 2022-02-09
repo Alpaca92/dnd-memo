@@ -4,12 +4,6 @@ Drag and Drop Memo
 
 ---
 
-## Usage 🍳
-
----
-
-1. `Category`는 제목을 `Drag and Drop`하여 옮길 수 있습니다
-
 ## Introduction 💡
 
 ---
@@ -19,6 +13,14 @@ Drag and Drop Memo
 기본적으로는 to do, doing, done을 제공하며,
 
 localStorage에 저장된 데이터가 있을 때에는 그에 맞는 form을 제공합니다
+
+<br />
+
+## Usage 🍳
+
+---
+
+`Category`는 제목을 `Drag and Drop`하여 옮길 수 있습니다
 
 <br />
 

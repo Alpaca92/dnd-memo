@@ -3,7 +3,7 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { todoState } from "./atoms";
 import Categories from "./components/Categories";
-import CategoryInput from "./components/CategoryInput";
+import Input from "./components/Input";
 
 const Wrapper = styled.main`
   width: 100%;
@@ -32,11 +32,25 @@ function App() {
     setTodos(duplicatedTodos);
   };
 
+  const onValid = (name: string) => {
+    setTodos((allCategories) => {
+      const newAllCategories = [{ [name]: [] }, ...allCategories];
+
+      localStorage.setItem("memo", JSON.stringify(newAllCategories));
+
+      return newAllCategories;
+    });
+  };
+
   return (
     <DragDropContext onDragEnd={onCategoryDragEnd}>
       <Wrapper>
         <Title>Drag and Drop Memo</Title>
-        <CategoryInput />
+        <Input
+          onValid={onValid}
+          name="category"
+          placeholder="write your custom category"
+        />
         <Categories todos={todos} />
       </Wrapper>
     </DragDropContext>

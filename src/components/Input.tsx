@@ -1,11 +1,9 @@
 import styled from "styled-components";
 import { IoIosAdd } from "react-icons/io";
 import { useForm } from "react-hook-form";
-import { useSetRecoilState } from "recoil";
-import { todoState } from "../atoms";
 
-interface Category {
-  category: string;
+interface Name {
+  [name: string]: string;
 }
 
 const Form = styled.form`
@@ -38,27 +36,19 @@ const Form = styled.form`
   }
 `;
 
-function CategoryInput() {
-  const setTodos = useSetRecoilState(todoState);
-  const { register, handleSubmit, setValue } = useForm<Category>();
-  const onSubmit = ({ category }: Category) => {
-    setTodos((allCategories) => {
-      const newAllCategories = [{ [category]: [] }, ...allCategories];
-
-      localStorage.setItem("memo", JSON.stringify(newAllCategories));
-
-      return newAllCategories;
-    });
-
-    setValue("category", "");
+function Input({ onValid, name, placeholder }: any) {
+  const { register, handleSubmit, setValue } = useForm<Name>();
+  const onSubmit = (obj: Name) => {
+    onValid(obj[name]);
+    setValue(name, "");
   };
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <input
-        {...register("category", { required: true })}
+        {...register(name, { required: true })}
         type="text"
-        placeholder="write your custom category"
+        placeholder={placeholder}
       />
       <button>
         <IoIosAdd />
@@ -67,4 +57,4 @@ function CategoryInput() {
   );
 }
 
-export default CategoryInput;
+export default Input;

@@ -1,7 +1,9 @@
-import { DragDropContext } from "react-beautiful-dnd";
+import { DragDropContext, DropResult } from "react-beautiful-dnd";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import Category from './components/Category';
-import Input from "./components/Input";
+import { todoState } from "./atoms";
+import Categories from "./components/Categories";
+import CategoryInput from "./components/CategoryInput";
 
 const Wrapper = styled.main`
   width: 100%;
@@ -18,14 +20,22 @@ const Title = styled.h1`
 `;
 
 function App() {
-  const onDragEnd = () => {};
+  const [todos, setTodos] = useRecoilState(todoState);
+  const onCategoryDragEnd = (info: DropResult) => {
+    const { destination, source } = info;
+    const duplicatedTodos = [...todos];
+    const [categoryObj] = duplicatedTodos.splice(source.index, 1);
+    duplicatedTodos.splice(destination?.index, 0, categoryObj);
+
+    setTodos([...duplicatedTodos]);
+  };
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
+    <DragDropContext onDragEnd={onCategoryDragEnd}>
       <Wrapper>
         <Title>Drag and Drop Memo</Title>
-        <Input />
-        <Category />
+        <CategoryInput />
+        <Categories todos={todos} />
       </Wrapper>
     </DragDropContext>
   );

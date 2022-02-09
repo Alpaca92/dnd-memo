@@ -3,7 +3,6 @@ import { IoIosAdd } from "react-icons/io";
 import { useForm } from "react-hook-form";
 import { useSetRecoilState } from "recoil";
 import { todoState } from "../atoms";
-import { getAllJSDocTagsOfKind } from "typescript";
 
 interface Category {
   category: string;
@@ -39,15 +38,12 @@ const Form = styled.form`
   }
 `;
 
-function Input() {
+function CategoryInput() {
   const setTodos = useSetRecoilState(todoState);
   const { register, handleSubmit, setValue } = useForm<Category>();
   const onSubmit = ({ category }: Category) => {
     setTodos((allCategories) => {
-      return {
-        category: [],
-        ...allCategories,
-      };
+      return [{ [category]: [] }, ...allCategories];
     });
 
     setValue("category", "");
@@ -67,4 +63,4 @@ function Input() {
   );
 }
 
-export default Input;
+export default CategoryInput;

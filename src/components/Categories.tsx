@@ -10,11 +10,14 @@ interface CategoriesProps {
 const CategoriesContainer = styled.section`
   margin: 2rem 0;
   width: 90%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(20rem, auto));
+  grid-gap: 0.5rem;
 `;
 
 function Categories({ todos }: CategoriesProps) {
   return (
-    <Droppable droppableId="categories">
+    <Droppable droppableId="categories" direction="horizontal">
       {(provided, snapshot) => (
         <CategoriesContainer
           ref={provided.innerRef}

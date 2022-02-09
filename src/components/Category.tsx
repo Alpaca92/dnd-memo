@@ -23,8 +23,6 @@ const CategoryTitle = styled.h3`
 function Category({ todo, idx }: CategoryProps) {
   const [category] = Object.keys(todo);
 
-  console.log(category);
-
   return (
     <Draggable draggableId={category} index={idx} key={category}>
       {(provided, snapshot) => (

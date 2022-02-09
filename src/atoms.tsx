@@ -11,5 +11,9 @@ export interface ITodoState {
 
 export const todoState = atom<ITodoState[]>({
   key: "todoState",
-  default: [{ Todo: [] }, { Doing: [] }, { Done: [] }],
+  default: JSON.parse(localStorage.getItem("memo") as string) || [
+    { Todo: [] },
+    { Doing: [] },
+    { Done: [] },
+  ],
 });

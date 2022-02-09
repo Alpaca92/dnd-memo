@@ -43,7 +43,11 @@ function CategoryInput() {
   const { register, handleSubmit, setValue } = useForm<Category>();
   const onSubmit = ({ category }: Category) => {
     setTodos((allCategories) => {
-      return [{ [category]: [] }, ...allCategories];
+      const newAllCategories = [{ [category]: [] }, ...allCategories];
+
+      localStorage.setItem("memo", JSON.stringify(newAllCategories));
+
+      return newAllCategories;
     });
 
     setValue("category", "");

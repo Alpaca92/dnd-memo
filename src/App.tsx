@@ -25,9 +25,11 @@ function App() {
     const { destination, source } = info;
     const duplicatedTodos = [...todos];
     const [categoryObj] = duplicatedTodos.splice(source.index, 1);
-    duplicatedTodos.splice(destination?.index, 0, categoryObj);
+    duplicatedTodos.splice(destination?.index || 0, 0, categoryObj);
 
-    setTodos([...duplicatedTodos]);
+    localStorage.setItem("memo", JSON.stringify(duplicatedTodos));
+
+    setTodos(duplicatedTodos);
   };
 
   return (

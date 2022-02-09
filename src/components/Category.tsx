@@ -1,9 +1,10 @@
-import React, { useRef } from "react";
+import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { ITodoState, todoState } from "../atoms";
 import { MdDelete } from "react-icons/md";
+import Tasks from "./Tasks";
 
 interface CategoryProps {
   todo: ITodoState;
@@ -78,6 +79,7 @@ function Category({ todo, idx }: CategoryProps) {
               <MdDelete />
             </button>
           </TitleAndExceptButtonContainer>
+          <Tasks todo={todo} />
         </CategoryContainer>
       )}
     </Draggable>

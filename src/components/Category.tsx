@@ -22,7 +22,6 @@ const CategoryContainer = styled.article<CategoryContainerProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 20rem;
   background-color: ${(props) => props.theme.categoryColor};
   border-radius: 0.5rem;
   box-shadow: ${(props) =>

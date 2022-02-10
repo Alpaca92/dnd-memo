@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { ITodoState, todoState } from "../atoms";
 import { MdDelete } from "react-icons/md";
 import Tasks from "./Tasks";
+import { saveLocalStorage } from "../globalMethods";
 
 interface CategoryProps {
   category: string;
@@ -52,20 +53,17 @@ const TitleAndExceptButtonContainer = styled.div`
 function Category({ category, index }: CategoryProps) {
   const setTodos = useSetRecoilState(todoState);
   const removeCategory = () => {
-    // setTodos((allCategories) => {
-    //   const duplicatedTodos = [...allCategories];
-    //   const exceptedCurrentCategory = duplicatedTodos.filter(
-    //     (todo) => Object.keys(todo)[0] !== category
-    //   );
+    setTodos((allCategories) => {
+      const duplicatedCategories = { ...allCategories };
+      delete duplicatedCategories[category];
+      saveLocalStorage(duplicatedCategories);
 
-    //   localStorage.setItem("memo", JSON.stringify(exceptedCurrentCategory));
-
-    //   return exceptedCurrentCategory;
-    // });
+      return duplicatedCategories;
+    });
   };
 
   return (
-    <Draggable draggableId={category} index={idx} key={category}>
+    <Draggable draggableId={category} index={index} key={category}>
       {(provided, snapshot) => (
         <CategoryContainer
           ref={provided.innerRef}
@@ -78,7 +76,7 @@ function Category({ category, index }: CategoryProps) {
               <MdDelete />
             </button>
           </TitleAndExceptButtonContainer>
-          <Tasks todo={todo} />
+          {/* <Tasks /> */}
         </CategoryContainer>
       )}
     </Draggable>

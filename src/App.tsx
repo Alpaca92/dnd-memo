@@ -1,7 +1,7 @@
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { todoState } from "./atoms";
+import { todoState } from './atoms';
 import Categories from "./components/Categories";
 import Input from "./components/Input";
 
@@ -26,18 +26,14 @@ function App() {
     // const duplicatedTodos = [...todos];
     // const [categoryObj] = duplicatedTodos.splice(source.index, 1);
     // duplicatedTodos.splice(destination?.index || 0, 0, categoryObj);
-
     // localStorage.setItem("memo", JSON.stringify(duplicatedTodos));
-
     // setTodos(duplicatedTodos);
   };
 
   const onValid = (name: string) => {
     // setTodos((allCategories) => {
     //   const newAllCategories = [{ [name]: [] }, ...allCategories];
-
     //   localStorage.setItem("memo", JSON.stringify(newAllCategories));
-
     //   return newAllCategories;
     // });
   };

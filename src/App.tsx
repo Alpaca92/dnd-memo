@@ -24,12 +24,31 @@ function App() {
   const [todos, setTodos] = useRecoilState(todoState);
   const onDragEnd = (info: DropResult) => {
     console.log(info);
-    // const { destination, source } = info;
-    // const duplicatedTodos = [...todos];
-    // const [categoryObj] = duplicatedTodos.splice(source.index, 1);
-    // duplicatedTodos.splice(destination?.index || 0, 0, categoryObj);
-    // localStorage.setItem("memo", JSON.stringify(duplicatedTodos));
-    // setTodos(duplicatedTodos);
+    const { type, source, destination } = info;
+
+    if (!destination) return;
+
+    if (type === "categories") {
+    } else {
+      setTodos((allTodos) => {
+        const [sourceCategoryName] = source.droppableId.split("-");
+        const [destinationCategoryName] = destination.droppableId.split("-");
+        const sourceCategory = [...allTodos[sourceCategoryName]];
+        const destinationCategory = [...allTodos[destinationCategoryName]];
+        const [excludedTaskObj] = sourceCategory.splice(source.index, 1);
+        destinationCategory.splice(destination.index, 0, excludedTaskObj);
+
+        const newTodos = {
+          ...allTodos,
+          [sourceCategoryName]: sourceCategory,
+          [destinationCategoryName]: destinationCategory,
+        };
+
+        saveLocalStorage(newTodos);
+
+        return newTodos;
+      });
+    }
   };
 
   const onValid = (categoryName: string) => {

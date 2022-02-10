@@ -1,9 +1,10 @@
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { todoState } from './atoms';
+import { todoState } from "./atoms";
 import Categories from "./components/Categories";
 import Input from "./components/Input";
+import { saveLocalStorage } from "./globalMethods";
 
 const Wrapper = styled.main`
   width: 100%;
@@ -31,11 +32,21 @@ function App() {
   };
 
   const onValid = (name: string) => {
-    // setTodos((allCategories) => {
-    //   const newAllCategories = [{ [name]: [] }, ...allCategories];
-    //   localStorage.setItem("memo", JSON.stringify(newAllCategories));
-    //   return newAllCategories;
-    // });
+    name = name.trim();
+
+    if (name === "") return;
+
+    setTodos((allCategories) => {
+      const duplicatedCategories = { ...allCategories };
+
+      if (duplicatedCategories.hasOwnProperty(name))
+        return duplicatedCategories;
+
+      const newAllCategories = { [name]: [], ...duplicatedCategories };
+      saveLocalStorage(newAllCategories);
+
+      return newAllCategories;
+    });
   };
 
   return (

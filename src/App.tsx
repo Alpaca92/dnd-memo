@@ -21,29 +21,29 @@ const Title = styled.h1`
 
 function App() {
   const [todos, setTodos] = useRecoilState(todoState);
-  const onCategoryDragEnd = (info: DropResult) => {
-    const { destination, source } = info;
-    const duplicatedTodos = [...todos];
-    const [categoryObj] = duplicatedTodos.splice(source.index, 1);
-    duplicatedTodos.splice(destination?.index || 0, 0, categoryObj);
+  const onDragEnd = (info: DropResult) => {
+    // const { destination, source } = info;
+    // const duplicatedTodos = [...todos];
+    // const [categoryObj] = duplicatedTodos.splice(source.index, 1);
+    // duplicatedTodos.splice(destination?.index || 0, 0, categoryObj);
 
-    localStorage.setItem("memo", JSON.stringify(duplicatedTodos));
+    // localStorage.setItem("memo", JSON.stringify(duplicatedTodos));
 
-    setTodos(duplicatedTodos);
+    // setTodos(duplicatedTodos);
   };
 
   const onValid = (name: string) => {
-    setTodos((allCategories) => {
-      const newAllCategories = [{ [name]: [] }, ...allCategories];
+    // setTodos((allCategories) => {
+    //   const newAllCategories = [{ [name]: [] }, ...allCategories];
 
-      localStorage.setItem("memo", JSON.stringify(newAllCategories));
+    //   localStorage.setItem("memo", JSON.stringify(newAllCategories));
 
-      return newAllCategories;
-    });
+    //   return newAllCategories;
+    // });
   };
 
   return (
-    <DragDropContext onDragEnd={onCategoryDragEnd}>
+    <DragDropContext onDragEnd={onDragEnd}>
       <Wrapper>
         <Title>Drag and Drop Memo</Title>
         <Input

@@ -4,7 +4,7 @@ import { ITodoState } from "../atoms";
 import Category from "./Category";
 
 interface CategoriesProps {
-  todos: ITodoState[];
+  todos: ITodoState;
 }
 
 const CategoriesContainer = styled.section`
@@ -16,15 +16,17 @@ const CategoriesContainer = styled.section`
 `;
 
 function Categories({ todos }: CategoriesProps) {
+  const categories = Object.keys(todos);
+
   return (
-    <Droppable droppableId="categories" direction="horizontal">
+    <Droppable key="categories" droppableId="categories" direction="horizontal">
       {(provided, snapshot) => (
         <CategoriesContainer
           ref={provided.innerRef}
           {...provided.droppableProps}
         >
-          {todos.map((todo, idx) => (
-            <Category key={Object.keys(todo)[0]} todo={todo} idx={idx} />
+          {categories.map((category, index) => (
+            <Category key={category} index={index} category={category} />
           ))}
           {provided.placeholder}
         </CategoriesContainer>

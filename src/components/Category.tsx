@@ -7,8 +7,8 @@ import { MdDelete } from "react-icons/md";
 import Tasks from "./Tasks";
 
 interface CategoryProps {
-  todo: ITodoState;
-  idx: number;
+  category: string;
+  index: number;
 }
 
 interface CategoryContainerProps {
@@ -49,20 +49,19 @@ const TitleAndExceptButtonContainer = styled.div`
   }
 `;
 
-function Category({ todo, idx }: CategoryProps) {
+function Category({ category, index }: CategoryProps) {
   const setTodos = useSetRecoilState(todoState);
-  const [category] = Object.keys(todo);
   const removeCategory = () => {
-    setTodos((allCategories) => {
-      const duplicatedTodos = [...allCategories];
-      const exceptedCurrentCategory = duplicatedTodos.filter(
-        (todo) => Object.keys(todo)[0] !== category
-      );
+    // setTodos((allCategories) => {
+    //   const duplicatedTodos = [...allCategories];
+    //   const exceptedCurrentCategory = duplicatedTodos.filter(
+    //     (todo) => Object.keys(todo)[0] !== category
+    //   );
 
-      localStorage.setItem("memo", JSON.stringify(exceptedCurrentCategory));
+    //   localStorage.setItem("memo", JSON.stringify(exceptedCurrentCategory));
 
-      return exceptedCurrentCategory;
-    });
+    //   return exceptedCurrentCategory;
+    // });
   };
 
   return (

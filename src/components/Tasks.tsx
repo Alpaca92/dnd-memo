@@ -1,5 +1,5 @@
 import { Droppable } from "react-beautiful-dnd";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { todoState } from "../atoms";
 import Task from "./Task";
@@ -11,7 +11,7 @@ const TasksContainer = styled.ul`
 `;
 
 function Tasks({ category }: { category: string }) {
-  const [todos, setTodos] = useRecoilState(todoState);
+  const todos = useRecoilValue(todoState);
   const tasks = todos[category];
 
   return (

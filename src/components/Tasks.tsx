@@ -1,20 +1,26 @@
-import { Draggable, Droppable } from "react-beautiful-dnd";
+import { Droppable } from "react-beautiful-dnd";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
+import { todoState } from "../atoms";
+import Task from "./Task";
 
 const TasksContainer = styled.ul`
   width: 100%;
   height: calc(100% - 3rem);
-  background-color: black;
-  opacity: 0.1;
+  padding: 1rem;
 `;
 
-function Tasks() {
+function Tasks({ category }: { category: string }) {
+  const [todos, setTodos] = useRecoilState(todoState);
+  const tasks = todos[category];
 
   return (
-    <Droppable droppableId="tasks">
+    <Droppable key={`${category}-tasks`} droppableId={`${category}-tasks`}>
       {(provided, snapshot) => (
         <TasksContainer ref={provided.innerRef} {...provided.droppableProps}>
-          
+          {tasks.map((task, index) => (
+            <Task index={index} key={task.id} task={task} category={category} />
+          ))}
           {provided.placeholder}
         </TasksContainer>
       )}

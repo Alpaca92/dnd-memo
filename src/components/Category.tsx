@@ -2,10 +2,11 @@ import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { ITodoState, todoState } from "../atoms";
+import { todoState } from "../atoms";
 import { MdDelete } from "react-icons/md";
 import Tasks from "./Tasks";
 import { saveLocalStorage } from "../globalMethods";
+import { TaskAndExceptButtonContainer } from "./Task";
 
 interface CategoryProps {
   category: string;
@@ -24,9 +25,7 @@ const CategoryContainer = styled.article<CategoryContainerProps>`
     props.isDragging ? "0rem 0.3rem 0.3rem #111314" : ""};
 `;
 
-const TitleAndExceptButtonContainer = styled.div`
-  position: relative;
-
+const TitleAndExceptButtonContainer = styled(TaskAndExceptButtonContainer)`
   & > h3 {
     font-weight: 500;
     text-align: center;
@@ -35,18 +34,9 @@ const TitleAndExceptButtonContainer = styled.div`
   }
 
   & > button {
-    all: unset;
     font-size: 1.2rem;
-    position: absolute;
     top: 1rem;
     right: 0.6rem;
-    color: rgba(255, 255, 255, 0.1);
-    transition: color 0.3s ease-in-out;
-
-    &:hover {
-      color: rgba(255, 255, 255, 0.7);
-      cursor: pointer;
-    }
   }
 `;
 
@@ -76,7 +66,7 @@ function Category({ category, index }: CategoryProps) {
               <MdDelete />
             </button>
           </TitleAndExceptButtonContainer>
-          {/* <Tasks /> */}
+          <Tasks category={category} />
         </CategoryContainer>
       )}
     </Draggable>

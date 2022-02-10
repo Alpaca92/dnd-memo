@@ -23,6 +23,7 @@ const Title = styled.h1`
 function App() {
   const [todos, setTodos] = useRecoilState(todoState);
   const onDragEnd = (info: DropResult) => {
+    console.log(info);
     // const { destination, source } = info;
     // const duplicatedTodos = [...todos];
     // const [categoryObj] = duplicatedTodos.splice(source.index, 1);

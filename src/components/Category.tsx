@@ -7,6 +7,7 @@ import { MdDelete } from "react-icons/md";
 import Tasks from "./Tasks";
 import { saveLocalStorage } from "../globalMethods";
 import { TaskAndExceptButtonContainer } from "./Task";
+import Input from "./Input";
 
 interface CategoryProps {
   category: string;
@@ -18,6 +19,9 @@ interface CategoryContainerProps {
 }
 
 const CategoryContainer = styled.article<CategoryContainerProps>`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   height: 20rem;
   background-color: ${(props) => props.theme.categoryColor};
   border-radius: 0.5rem;
@@ -26,6 +30,8 @@ const CategoryContainer = styled.article<CategoryContainerProps>`
 `;
 
 const TitleAndExceptButtonContainer = styled(TaskAndExceptButtonContainer)`
+  width: 100%;
+
   & > h3 {
     font-weight: 500;
     text-align: center;
@@ -40,6 +46,8 @@ const TitleAndExceptButtonContainer = styled(TaskAndExceptButtonContainer)`
   }
 `;
 
+const TaskInput = styled(Input)``;
+
 function Category({ category, index }: CategoryProps) {
   const setTodos = useSetRecoilState(todoState);
   const removeCategory = () => {
@@ -49,6 +57,28 @@ function Category({ category, index }: CategoryProps) {
       saveLocalStorage(duplicatedCategories);
 
       return duplicatedCategories;
+    });
+  };
+  const onValid = (text: string) => {
+    text = text.trim();
+
+    if (text === "") return;
+
+    const newTask = {
+      id: new Date(),
+      text,
+    };
+
+    setTodos((allCategories) => {
+      const targetTasks = allCategories[category];
+      const updateTargetTasks = [newTask, ...targetTasks];
+      const newTodos = {
+        ...allCategories,
+        [category]: updateTargetTasks,
+      };
+      saveLocalStorage(newTodos);
+
+      return newTodos;
     });
   };
 
@@ -66,6 +96,11 @@ function Category({ category, index }: CategoryProps) {
               <MdDelete />
             </button>
           </TitleAndExceptButtonContainer>
+          <TaskInput
+            onValid={onValid}
+            name={category}
+            placeholder={`Add task on ${category}`}
+          />
           <Tasks category={category} />
         </CategoryContainer>
       )}

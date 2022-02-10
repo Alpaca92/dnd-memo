@@ -32,18 +32,18 @@ function App() {
     // setTodos(duplicatedTodos);
   };
 
-  const onValid = (name: string) => {
-    name = name.trim();
+  const onValid = (categoryName: string) => {
+    categoryName = categoryName.trim();
 
-    if (name === "") return;
+    if (categoryName === "") return;
 
     setTodos((allCategories) => {
       const duplicatedCategories = { ...allCategories };
 
-      if (duplicatedCategories.hasOwnProperty(name))
+      if (duplicatedCategories.hasOwnProperty(categoryName))
         return duplicatedCategories;
 
-      const newAllCategories = { [name]: [], ...duplicatedCategories };
+      const newAllCategories = { [categoryName]: [], ...duplicatedCategories };
       saveLocalStorage(newAllCategories);
 
       return newAllCategories;

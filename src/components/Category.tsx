@@ -88,10 +88,11 @@ function Category({ category, index }: CategoryProps) {
         <CategoryContainer
           ref={provided.innerRef}
           {...provided.draggableProps}
+          {...provided.dragHandleProps}
           isDragging={snapshot.isDragging}
         >
           <TitleAndExceptButtonContainer>
-            <h3 {...provided.dragHandleProps}>{category}</h3>
+            <h3>{category}</h3>
             <button onClick={removeCategory}>
               <MdDelete />
             </button>

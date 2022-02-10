@@ -1,12 +1,4 @@
-<p style='text-align: center; font-size: 2rem;'>
-Drag and Drop Memo
-</p>
-
----
-
 ## Introduction 💡
-
----
 
 간단하게 메모를 입력할 수 있는 todo list 스타일의 웹앱입니다
 
@@ -16,17 +8,7 @@ localStorage에 저장된 데이터가 있을 때에는 그에 맞는 form을 �
 
 <br />
 
-## Usage 🍳
-
----
-
-`Category`는 제목을 `Drag and Drop`하여 옮길 수 있습니다
-
-<br />
-
 ## Skills & tools 🛠
-
----
 
 ✔ typescript
 

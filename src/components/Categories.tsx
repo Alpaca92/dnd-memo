@@ -19,7 +19,12 @@ function Categories({ todos }: CategoriesProps) {
   const categories = Object.keys(todos);
 
   return (
-    <Droppable key="categories" droppableId="categories" direction="horizontal">
+    <Droppable
+      type="categories"
+      key="categories"
+      droppableId="categories"
+      direction="horizontal"
+    >
       {(provided, snapshot) => (
         <CategoriesContainer
           ref={provided.innerRef}

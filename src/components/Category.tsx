@@ -46,7 +46,9 @@ const TitleAndExceptButtonContainer = styled(TaskAndExceptButtonContainer)`
   }
 `;
 
-const TaskInput = styled(Input)``;
+const TaskInput = styled(Input)`
+  cursor: text;
+`;
 
 function Category({ category, index }: CategoryProps) {
   const setTodos = useSetRecoilState(todoState);
@@ -65,7 +67,7 @@ function Category({ category, index }: CategoryProps) {
     if (text === "") return;
 
     const newTask = {
-      id: new Date(),
+      id: Date.now(),
       text,
     };
 

@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/dnd-memo/static/js/main.862d6631.js",
+    "index.html": "/dnd-memo/index.html",
+    "main.862d6631.js.map": "/dnd-memo/static/js/main.862d6631.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.862d6631.js"
+  ]
+}

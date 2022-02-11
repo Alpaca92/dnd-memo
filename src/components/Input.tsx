@@ -37,7 +37,7 @@ export const Form = styled.form`
   & > button {
     all: unset;
     position: absolute;
-    top: 1rem;
+    top: 1.1rem;
     right: 0.5rem;
   }
 `;

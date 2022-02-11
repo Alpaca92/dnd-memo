@@ -12,7 +12,7 @@ interface Name {
   [name: string]: string;
 }
 
-const Form = styled.form`
+export const Form = styled.form`
   width: 40%;
   max-width: 25rem;
   margin-top: 2rem;

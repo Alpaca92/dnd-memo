@@ -7,7 +7,7 @@ import { MdDelete } from "react-icons/md";
 import Tasks from "./Tasks";
 import { saveLocalStorage } from "../globalMethods";
 import { TaskAndExceptButtonContainer } from "./Task";
-import Input from "./Input";
+import Input, { Form } from "./Input";
 
 interface CategoryProps {
   category: string;
@@ -26,6 +26,21 @@ const CategoryContainer = styled.article<CategoryContainerProps>`
   border-radius: 0.5rem;
   box-shadow: ${(props) =>
     props.isDragging ? "0rem 0.3rem 0.3rem #111314" : ""};
+
+  ${Form} {
+    width: 80%;
+    margin-top: 0;
+
+    & > input {
+      padding: 0.1rem 0.5rem;
+      font-size: 0.9rem;
+      cursor: text;
+    }
+
+    & > button {
+      top: 0.65rem;
+    }
+  }
 `;
 
 const TitleAndExceptButtonContainer = styled(TaskAndExceptButtonContainer)`
@@ -43,10 +58,6 @@ const TitleAndExceptButtonContainer = styled(TaskAndExceptButtonContainer)`
     top: 1rem;
     right: 0.6rem;
   }
-`;
-
-const TaskInput = styled(Input)`
-  cursor: text;
 `;
 
 function Category({ category, index }: CategoryProps) {
@@ -98,7 +109,7 @@ function Category({ category, index }: CategoryProps) {
               <MdDelete />
             </button>
           </TitleAndExceptButtonContainer>
-          <TaskInput
+          <Input
             onValid={onValid}
             name={category}
             placeholder={`Add task on ${category}`}

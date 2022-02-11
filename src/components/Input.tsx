@@ -13,7 +13,7 @@ interface Name {
 }
 
 export const Form = styled.form`
-  width: 40%;
+  width: 60%;
   max-width: 25rem;
   margin-top: 2rem;
   display: flex;
@@ -39,6 +39,10 @@ export const Form = styled.form`
     position: absolute;
     top: 1.1rem;
     right: 0.5rem;
+  }
+
+  @media (max-width: 768px) {
+    width: 80%;
   }
 `;
 

@@ -23,20 +23,33 @@ const Title = styled.h1`
 function App() {
   const [todos, setTodos] = useRecoilState(todoState);
   const onDragEnd = (info: DropResult) => {
-    console.log(info);
     const { type, source, destination } = info;
 
     if (!destination) return;
 
     if (type === "categories") {
+      setTodos((allCategories) => {
+        const categoryEntries = Object.entries(allCategories);
+        const [excludedCategory] = categoryEntries.splice(source.index, 1);
+        categoryEntries.splice(destination.index, 0, excludedCategory);
+
+        const convertEntriesToObject = categoryEntries.reduce(
+          (obj, [key, value]) => ({ ...obj, [key]: value }),
+          {}
+        );
+
+        saveLocalStorage(convertEntriesToObject);
+
+        return convertEntriesToObject;
+      });
     } else {
       setTodos((allTodos) => {
         const [sourceCategoryName] = source.droppableId.split("-");
         const [destinationCategoryName] = destination.droppableId.split("-");
         const sourceCategory = [...allTodos[sourceCategoryName]];
         const destinationCategory = [...allTodos[destinationCategoryName]];
-        const [excludedTaskObj] = sourceCategory.splice(source.index, 1);
-        destinationCategory.splice(destination.index, 0, excludedTaskObj);
+        const [excludedTask] = sourceCategory.splice(source.index, 1);
+        destinationCategory.splice(destination.index, 0, excludedTask);
 
         const newTodos = {
           ...allTodos,

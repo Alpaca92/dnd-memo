@@ -18,6 +18,10 @@ const Title = styled.h1`
   font-weight: 500;
   font-size: 3rem;
   line-height: 5rem;
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
 `;
 
 function App() {

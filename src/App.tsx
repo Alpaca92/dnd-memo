@@ -33,14 +33,14 @@ function App() {
         const [excludedCategory] = categoryEntries.splice(source.index, 1);
         categoryEntries.splice(destination.index, 0, excludedCategory);
 
-        const convertEntriesToObject = categoryEntries.reduce(
+        const convertCategoryEntriesToObject = categoryEntries.reduce(
           (obj, [key, value]) => ({ ...obj, [key]: value }),
           {}
         );
 
-        saveLocalStorage(convertEntriesToObject);
+        saveLocalStorage(convertCategoryEntriesToObject);
 
-        return convertEntriesToObject;
+        return convertCategoryEntriesToObject;
       });
     } else {
       setTodos((allTodos) => {

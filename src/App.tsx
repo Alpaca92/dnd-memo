@@ -27,7 +27,6 @@ const Title = styled.h1`
 function App() {
   const [todos, setTodos] = useRecoilState(todoState);
   const onDragEnd = (info: DropResult) => {
-    console.log(info);
     const { type, source, destination } = info;
 
     if (!destination) return;

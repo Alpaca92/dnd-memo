@@ -27,6 +27,7 @@ const Title = styled.h1`
 function App() {
   const [todos, setTodos] = useRecoilState(todoState);
   const onDragEnd = (info: DropResult) => {
+    console.log(info);
     const { type, source, destination } = info;
 
     if (!destination) return;
@@ -48,22 +49,38 @@ function App() {
       });
     } else {
       setTodos((allTodos) => {
-        const [sourceCategoryName] = source.droppableId.split("-");
-        const [destinationCategoryName] = destination.droppableId.split("-");
-        const sourceCategory = [...allTodos[sourceCategoryName]];
-        const destinationCategory = [...allTodos[destinationCategoryName]];
-        const [excludedTask] = sourceCategory.splice(source.index, 1);
-        destinationCategory.splice(destination.index, 0, excludedTask);
+        if (source.droppableId === destination.droppableId) {
+          const [categoryName] = source.droppableId.split("-");
+          const duplicatedCategory = [...allTodos[categoryName]];
+          const [excludedTask] = duplicatedCategory.splice(source.index, 1);
+          duplicatedCategory.splice(destination.index, 0, excludedTask);
 
-        const newTodos = {
-          ...allTodos,
-          [sourceCategoryName]: sourceCategory,
-          [destinationCategoryName]: destinationCategory,
-        };
+          const newTodos = {
+            ...allTodos,
+            [categoryName]: duplicatedCategory,
+          };
 
-        saveLocalStorage(newTodos);
+          saveLocalStorage(newTodos);
 
-        return newTodos;
+          return newTodos;
+        } else {
+          const [sourceCategoryName] = source.droppableId.split("-");
+          const [destinationCategoryName] = destination.droppableId.split("-");
+          const sourceCategory = [...allTodos[sourceCategoryName]];
+          const destinationCategory = [...allTodos[destinationCategoryName]];
+          const [excludedTask] = sourceCategory.splice(source.index, 1);
+          destinationCategory.splice(destination.index, 0, excludedTask);
+
+          const newTodos = {
+            ...allTodos,
+            [sourceCategoryName]: sourceCategory,
+            [destinationCategoryName]: destinationCategory,
+          };
+
+          saveLocalStorage(newTodos);
+
+          return newTodos;
+        }
       });
     }
   };
